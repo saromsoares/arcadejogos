@@ -1,0 +1,145 @@
+import { useEffect, useState } from 'react';
+import { LEVELS_METADATA } from '../game/levels';
+import { gameState } from '../game/GameState';
+import { LevelProgress } from '../game/levels/schema';
+import '../styles/level-select.css';
+
+interface LevelSelectProps {
+  onLevelSelected: (levelId: string) => void;
+}
+
+export default function LevelSelect({ onLevelSelected }: LevelSelectProps) {
+  const [progress, setProgress] = useState<Map<string, LevelProgress>>(new Map());
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Carregar progresso inicial
+    setProgress(gameState.getAllProgress());
+
+    // Inscrever para mudanças
+    const unsubscribe = gameState.subscribe((state) => {
+      setProgress(state.levelProgress);
+      setSelectedId(state.selectedLevelId);
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const handleLevelClick = (levelId: string) => {
+    gameState.setSelectedLevel(levelId);
+    setSelectedId(levelId);
+    onLevelSelected(levelId);
+  };
+
+  const getProgressPercentage = (levelId: string): number => {
+    const p = progress.get(levelId);
+    if (!p) return 0;
+    let percentage = 0;
+    if (p.completed) percentage += 50;
+    if (p.bestCollectibles === 3) percentage += 50;
+    return percentage;
+  };
+
+  const formatTime = (ms: number | null): string => {
+    if (ms === null) return '-';
+    const seconds = Math.floor(ms / 1000);
+    return `${seconds}s`;
+  };
+
+  return (
+    <div className="level-select-container">
+      <div className="level-select-header">
+        <h1>🌬️ Mundo do Vento</h1>
+        <p>Selecione uma fase para começar</p>
+      </div>
+
+      <div className="level-select-stats">
+        <div className="stat">
+          <span className="stat-label">Moedas Totais</span>
+          <span className="stat-value">{gameState.getTotalCoinsCollected()}</span>
+        </div>
+        <div className="stat">
+          <span className="stat-label">Mortes Totais</span>
+          <span className="stat-value">{gameState.getTotalDeaths()}</span>
+        </div>
+        <div className="stat">
+          <span className="stat-label">Fases Concluídas</span>
+          <span className="stat-value">
+            {progress.size > 0
+              ? Array.from(progress.values()).filter((p) => p.completed).length
+              : 0}
+            /{LEVELS_METADATA.length}
+          </span>
+        </div>
+      </div>
+
+      <div className="level-grid">
+        {LEVELS_METADATA.map((level) => {
+          const p = progress.get(level.id);
+          const isCompleted = p?.completed ?? false;
+          const bestTime = p?.bestTimeMs ?? null;
+          const bestCoins = p?.bestCollectibles ?? 0;
+          const progressPct = getProgressPercentage(level.id);
+          const isSelected = selectedId === level.id;
+
+          return (
+            <div
+              key={level.id}
+              className={`level-card ${isCompleted ? 'completed' : ''} ${
+                isSelected ? 'selected' : ''
+              }`}
+              onClick={() => handleLevelClick(level.id)}
+            >
+              <div className="level-card-header">
+                <span className="level-number">#{level.difficulty}</span>
+                <span className="level-difficulty">
+                  {'⭐'.repeat(Math.min(level.difficulty, 5))}
+                </span>
+              </div>
+
+              <h3 className="level-name">{level.name}</h3>
+              <p className="level-description">{level.description}</p>
+
+              <div className="level-progress-bar">
+                <div
+                  className="level-progress-fill"
+                  style={{ width: `${progressPct}%` }}
+                />
+              </div>
+
+              <div className="level-select-stats">
+                <div className="stat">
+                  <span className="stat-icon">⏱️</span>
+                  <span className="stat-text">
+                    {isCompleted ? formatTime(bestTime) : `Goal: ${level.timeGoalSeconds}s`}
+                  </span>
+                </div>
+                <div className="stat">
+                  <span className="stat-icon">💰</span>
+                  <span className="stat-text">{bestCoins}/3</span>
+                </div>
+              </div>
+
+              {isCompleted && (
+                <div className="level-badge">
+                  <span className="badge-icon">✓</span>
+                  <span className="badge-text">Concluída</span>
+                </div>
+              )}
+
+              <button
+                className="level-play-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleLevelClick(level.id);
+                }}
+              >
+                {isCompleted ? 'Jogar Novamente' : 'Jogar'}
+              </button>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}

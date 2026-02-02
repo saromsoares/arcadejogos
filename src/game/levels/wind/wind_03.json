@@ -1,0 +1,117 @@
+{
+  "id": "wind_03",
+  "name": "Redemoinhos",
+  "description": "Redemoinhos de ar criam padrões complexos. Navegue com cuidado.",
+  "difficulty": 3,
+  "timeGoalSeconds": 90,
+  "playerSpawn": {
+    "x": 50,
+    "y": 500
+  },
+  "goal": {
+    "x": 750,
+    "y": 50,
+    "radius": 30
+  },
+  "platforms": [
+    {
+      "x": 400,
+      "y": 550,
+      "width": 800,
+      "height": 50
+    },
+    {
+      "x": 100,
+      "y": 450,
+      "width": 100,
+      "height": 30
+    },
+    {
+      "x": 300,
+      "y": 350,
+      "width": 100,
+      "height": 30
+    },
+    {
+      "x": 500,
+      "y": 250,
+      "width": 100,
+      "height": 30
+    },
+    {
+      "x": 700,
+      "y": 150,
+      "width": 100,
+      "height": 30
+    }
+  ],
+  "hazards": [
+    {
+      "type": "spikes",
+      "x": 200,
+      "y": 520,
+      "width": 80,
+      "height": 30
+    },
+    {
+      "type": "spikes",
+      "x": 400,
+      "y": 320,
+      "width": 80,
+      "height": 30
+    },
+    {
+      "type": "spikes",
+      "x": 600,
+      "y": 220,
+      "width": 80,
+      "height": 30
+    }
+  ],
+  "collectibles": [
+    {
+      "x": 100,
+      "y": 400,
+      "id": "coin_1"
+    },
+    {
+      "x": 300,
+      "y": 300,
+      "id": "coin_2"
+    },
+    {
+      "x": 700,
+      "y": 100,
+      "id": "coin_3"
+    }
+  ],
+  "windZones": [
+    {
+      "x": 150,
+      "y": 200,
+      "width": 250,
+      "height": 250,
+      "forceX": 180,
+      "forceY": -100,
+      "type": "pulsed",
+      "pulseDuration": 800
+    },
+    {
+      "x": 450,
+      "y": 150,
+      "width": 250,
+      "height": 250,
+      "forceX": -150,
+      "forceY": -80,
+      "type": "pulsed",
+      "pulseDuration": 1200
+    }
+  ],
+  "movingPlatforms": [],
+  "checkpoints": [],
+  "hints": [
+    "Observe o padrão do vento!",
+    "Sincronize seus pulos com os redemoinhos.",
+    "Nem sempre é melhor ir em linha reta."
+  ]
+}

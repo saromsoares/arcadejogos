@@ -1,0 +1,487 @@
+/**
+ * Global Styles - Portais do Improviso
+ * 
+ * Estilo base do jogo com foco em:
+ * - Reset mínimo
+ * - Container do jogo centralizado
+ * - HUD sobreposto ao canvas
+ * - Variáveis CSS para consistência
+ */
+
+/* ==========================================
+   CSS Variables (Design Tokens)
+   ========================================== */
+:root {
+  /* Cores principais */
+  --color-primary: #7c3aed;
+  --color-primary-light: #a78bfa;
+  --color-secondary: #fbbf24;
+  --color-accent: #22d3ee;
+  
+  /* Cores de UI */
+  --color-bg-dark: #0f0f23;
+  --color-bg-medium: #1a1a2e;
+  --color-bg-light: #16213e;
+  
+  /* Texto */
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
+  
+  /* Moedas */
+  --color-gold: #ffd700;
+  --color-gold-dark: #b8860b;
+  
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.5);
+  
+  /* Tipografia */
+  --font-game: 'Segoe UI', 'Roboto', sans-serif;
+  --font-mono: 'Consolas', 'Monaco', monospace;
+  
+  /* Tamanhos */
+  --game-width: 800px;
+  --game-height: 600px;
+  --hud-padding: 16px;
+  --border-radius: 8px;
+}
+
+/* ==========================================
+   Reset Mínimo
+   ========================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-game);
+  background: var(--color-bg-dark);
+  color: var(--color-text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================
+   App Container
+   ========================================== */
+.app {
+  position: relative;
+  width: var(--game-width);
+  height: var(--game-height);
+  background: var(--color-bg-medium);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+
+/* ==========================================
+   Phaser Game Container
+   ========================================== */
+.phaser-game-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+#phaser-container {
+  width: 100%;
+  height: 100%;
+}
+
+#phaser-container canvas {
+  display: block;
+  border-radius: var(--border-radius);
+}
+
+/* Loading overlay */
+.phaser-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-dark);
+  color: var(--color-text-secondary);
+  font-size: 1.125rem;
+  z-index: 100;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================
+   HUD (Heads-Up Display)
+   ========================================== */
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permite clicks passarem para o canvas */
+  z-index: 10;
+  padding: var(--hud-padding);
+}
+
+/* Contador de Moedas */
+.hud-coins {
+  position: absolute;
+  top: var(--hud-padding);
+  left: var(--hud-padding);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 8px 16px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.hud-coin-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  animation: coinPulse 2s ease-in-out infinite;
+}
+
+@keyframes coinPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.hud-coin-count {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  min-width: 2ch;
+}
+
+/* Instruções de Controles */
+.hud-controls {
+  position: absolute;
+  bottom: var(--hud-padding);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 24px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}
+
+.hud-controls span {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Debug Panel */
+.hud-debug {
+  position: absolute;
+  top: var(--hud-padding);
+  right: var(--hud-padding);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 8px 12px;
+  border-radius: var(--border-radius);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent);
+}
+
+/* ==========================================
+   Animações Globais
+   ========================================== */
+@keyframes slideInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Classe utilitária para animar entrada */
+.animate-in {
+  animation: slideInFromTop 0.4s ease-out;
+}
+
+/* ==========================================
+   Responsividade Básica
+   ========================================== */
+@media (max-width: 840px) {
+  :root {
+    --game-width: 100vw;
+    --game-height: 100vh;
+  }
+  
+  .app {
+    border-radius: 0;
+  }
+  
+  #phaser-container canvas {
+    border-radius: 0;
+  }
+}
+
+/* ==========================================
+   Acessibilidade
+   ========================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible para navegação por teclado */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+
+/* ==========================================
+   HUD Estendido (Novos Elementos)
+   ========================================== */
+
+/* Botão de voltar */
+.hud-back-button {
+  position: absolute;
+  top: var(--hud-padding);
+  right: var(--hud-padding);
+  pointer-events: auto;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  color: var(--color-text-primary);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.hud-back-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+.hud-back-button:active {
+  transform: translateY(0);
+}
+
+/* Nome do nível */
+.hud-level-name {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  color: var(--color-text-primary);
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  pointer-events: none;
+  animation: slideInFromTop 0.4s ease-out;
+}
+
+/* Contador de mortes */
+.hud-deaths {
+  position: absolute;
+  top: var(--hud-padding);
+  left: calc(var(--hud-padding) + 150px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 8px 16px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.hud-death-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.hud-death-count {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ff6b6b;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  min-width: 2ch;
+}
+
+/* Timer */
+.hud-timer {
+  position: absolute;
+  top: var(--hud-padding);
+  right: calc(var(--hud-padding) + 100px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  padding: 8px 16px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+.hud-timer-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+  animation: timerPulse 1s ease-in-out infinite;
+}
+
+@keyframes timerPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.hud-timer-text {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  min-width: 5ch;
+  font-family: var(--font-mono);
+}
+
+/* Overlay de conclusão */
+.hud-completion-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  pointer-events: auto;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease;
+}
+
+.hud-completion-card {
+  background: linear-gradient(135deg, var(--color-bg-light) 0%, var(--color-bg-medium) 100%);
+  border: 2px solid var(--color-primary-light);
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+  animation: bounceIn 0.5s ease-out;
+}
+
+.hud-completion-card h2 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  color: var(--color-primary-light);
+}
+
+.hud-completion-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.completion-stat {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 4px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-primary-light);
+}
+
+.hud-completion-button {
+  pointer-events: auto;
+  width: 100%;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-md);
+}
+
+.hud-completion-button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.hud-completion-button:active {
+  transform: translateY(0);
+}

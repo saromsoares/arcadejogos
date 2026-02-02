@@ -1,0 +1,116 @@
+{
+  "id": "wind_11",
+  "name": "Converg\u00eancia",
+  "description": "Todos os ventos convergem em um \u00fanico ponto.",
+  "difficulty": 11,
+  "timeGoalSeconds": 210,
+  "playerSpawn": {
+    "x": 150,
+    "y": 500
+  },
+  "goal": {
+    "x": 750,
+    "y": 100,
+    "radius": 30
+  },
+  "platforms": [
+    {
+      "x": 400,
+      "y": 550,
+      "width": 800,
+      "height": 50
+    },
+    {
+      "x": 250,
+      "y": 350,
+      "width": 100,
+      "height": 30
+    },
+    {
+      "x": 400,
+      "y": 250,
+      "width": 100,
+      "height": 30
+    },
+    {
+      "x": 550,
+      "y": 150,
+      "width": 100,
+      "height": 30
+    },
+    {
+      "x": 700,
+      "y": 50,
+      "width": 100,
+      "height": 30
+    }
+  ],
+  "hazards": [
+    {
+      "type": "spikes",
+      "x": 200,
+      "y": 520,
+      "width": 80,
+      "height": 30
+    },
+    {
+      "type": "spikes",
+      "x": 350,
+      "y": 420,
+      "width": 80,
+      "height": 30
+    },
+    {
+      "type": "spikes",
+      "x": 500,
+      "y": 320,
+      "width": 80,
+      "height": 30
+    }
+  ],
+  "collectibles": [
+    {
+      "x": 100,
+      "y": 400,
+      "id": "coin_1"
+    },
+    {
+      "x": 400,
+      "y": 300,
+      "id": "coin_2"
+    },
+    {
+      "x": 700,
+      "y": 200,
+      "id": "coin_3"
+    }
+  ],
+  "windZones": [
+    {
+      "x": 150,
+      "y": 200,
+      "width": 250,
+      "height": 250,
+      "forceX": 150,
+      "forceY": -50,
+      "type": "pulsed",
+      "pulseDuration": 800
+    },
+    {
+      "x": 350,
+      "y": 250,
+      "width": 250,
+      "height": 250,
+      "forceX": 200,
+      "forceY": -70,
+      "type": "constant"
+    }
+  ],
+  "movingPlatforms": [],
+  "checkpoints": [],
+  "hints": [
+    "Dica 11 - Fase 11",
+    "Observe o padr\u00e3o do vento n\u00edvel 11",
+    "Voc\u00ea consegue completar em 210 segundos?"
+  ]
+}

@@ -1,0 +1,300 @@
+/* Level Select Screen Styles */
+
+.level-select-container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 40px 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.level-select-header {
+  text-align: center;
+  color: white;
+  margin-bottom: 40px;
+  animation: slideDown 0.6s ease-out;
+}
+
+.level-select-header h1 {
+  font-size: 3em;
+  margin: 0 0 10px 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.level-select-header p {
+  font-size: 1.2em;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.level-select-stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+}
+
+.stat {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 20px 30px;
+  border-radius: 10px;
+  color: white;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  min-width: 150px;
+  animation: slideUp 0.6s ease-out;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.9em;
+  opacity: 0.8;
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.level-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.level-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.level-card.selected {
+  border: 3px solid #667eea;
+  box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+}
+
+.level-card.completed {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.level-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.level-number {
+  background: #667eea;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: bold;
+}
+
+.level-difficulty {
+  font-size: 1.1em;
+}
+
+.level-name {
+  font-size: 1.4em;
+  margin: 12px 0 8px 0;
+  color: #333;
+}
+
+.level-description {
+  font-size: 0.9em;
+  color: #666;
+  margin: 0 0 16px 0;
+  line-height: 1.4;
+}
+
+.level-progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #e0e0e0;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.level-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  transition: width 0.3s ease;
+}
+
+.level-stats {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: 0.9em;
+}
+
+.level-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #666;
+}
+
+.stat-icon {
+  font-size: 1.2em;
+}
+
+.stat-text {
+  font-weight: 500;
+}
+
+.level-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: bold;
+}
+
+.badge-icon {
+  font-size: 1.1em;
+}
+
+.level-play-button {
+  width: 100%;
+  padding: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.level-play-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.level-play-button:active {
+  transform: scale(0.98);
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .level-select-container {
+    padding: 20px 10px;
+  }
+
+  .level-select-header h1 {
+    font-size: 2em;
+  }
+
+  .level-select-stats {
+    gap: 15px;
+  }
+
+  .stat {
+    padding: 15px 20px;
+    min-width: 120px;
+  }
+
+  .level-grid {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 15px;
+  }
+
+  .level-card {
+    padding: 15px;
+  }
+
+  .level-name {
+    font-size: 1.1em;
+  }
+
+  .level-description {
+    font-size: 0.85em;
+  }
+}
+
+@media (max-width: 480px) {
+  .level-select-container {
+    padding: 15px 8px;
+  }
+
+  .level-select-header h1 {
+    font-size: 1.5em;
+  }
+
+  .level-select-stats {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .stat {
+    width: 100%;
+  }
+
+  .level-grid {
+    grid-template-columns: 1fr;
+  }
+}
+deploy-arcade
+

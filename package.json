@@ -1,0 +1,25 @@
+{
+  "name": "portais-do-improviso-client",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+"deploy": "npm run build && sudo rm -rf /var/www/arcadestudio.games/* && sudo cp -r dist/* /var/www/arcadestudio.games/ && sudo chown -R www-data:www-data /var/www/arcadestudio.games"
+  },
+  "dependencies": {
+    "phaser": "^3.80.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.4.2"
+  }
+}

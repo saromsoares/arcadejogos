@@ -1,0 +1,86 @@
+{
+  "id": "wind_01",
+  "name": "Brisa Suave",
+  "description": "Sua primeira aventura no Mundo do Vento. Aprenda a controlar o personagem.",
+  "difficulty": 1,
+  "timeGoalSeconds": 60,
+  "playerSpawn": {
+    "x": 100,
+    "y": 500
+  },
+  "goal": {
+    "x": 700,
+    "y": 100,
+    "radius": 30
+  },
+  "platforms": [
+    {
+      "x": 400,
+      "y": 550,
+      "width": 800,
+      "height": 50
+    },
+    {
+      "x": 200,
+      "y": 450,
+      "width": 150,
+      "height": 30
+    },
+    {
+      "x": 450,
+      "y": 350,
+      "width": 150,
+      "height": 30
+    },
+    {
+      "x": 700,
+      "y": 250,
+      "width": 150,
+      "height": 30
+    }
+  ],
+  "hazards": [
+    {
+      "type": "spikes",
+      "x": 350,
+      "y": 520,
+      "width": 100,
+      "height": 30
+    }
+  ],
+  "collectibles": [
+    {
+      "x": 200,
+      "y": 400,
+      "id": "coin_1"
+    },
+    {
+      "x": 450,
+      "y": 300,
+      "id": "coin_2"
+    },
+    {
+      "x": 700,
+      "y": 200,
+      "id": "coin_3"
+    }
+  ],
+  "windZones": [
+    {
+      "x": 300,
+      "y": 300,
+      "width": 200,
+      "height": 200,
+      "forceX": 150,
+      "forceY": 0,
+      "type": "constant"
+    }
+  ],
+  "movingPlatforms": [],
+  "checkpoints": [],
+  "hints": [
+    "Use as setas para se mover!",
+    "Pressione ESPAÇO para pular!",
+    "Colete as 3 moedas para ganhar pontos extras!"
+  ]
+}
